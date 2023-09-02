@@ -1,4 +1,4 @@
-const SLICE_COUNT = 8;
+const SLICE_COUNT = 6;
 
 function setup_pScope(pScope){
   pScope.output_mode(ANIMATED_DISK);
@@ -8,12 +8,13 @@ function setup_pScope(pScope){
   pScope.set_slice_count(SLICE_COUNT);
   pScope.load_image("stingray" , "png");
   pScope.load_image("fish" , "png");
+  pScope.load_image("fish2" , "png");
 
 }
 
 function setup_layers(pScope){
 
-  new PLayer(null, "#90D1D3");  //lets us draw the whole circle background, ignoring the boundaries
+  new PLayer(null, "#14b5d6");  //lets us draw the whole circle background, ignoring the boundaries
 
   var layer1 = new PLayer(stingray);
   layer1.mode( SWIRL(5) );
@@ -31,12 +32,29 @@ function stingray(stingrayx, y, animation, pScope){
   var stingrayx = animation.wave(3)*400;
   pScope.draw_image("stingray",stingrayx,y); 
 
+  var stingrayx = animation.wave(1)*900;
+  pScope.draw_image("stingray",stingrayx,y); 
 
-scale(0.5);
-var fishx = animation.wave(1)*100;
-pScope.draw_image("fish",fishx,y); 
+  scale(0.5);
+  var fish2x = animation.wave(1)*1100;
+pScope.draw_image("fish2",fish2x,y); 
 
+var fish2x = animation.wave(4)*100;
+pScope.draw_image("fish2",fish2x,y); 
+
+// var fishx = animation.wave(6)*600;
+// pScope.draw_image("fish",fishx,y); 
+
+// }
 }
+// }
+
+
+// function stingray(fish2x, y, animation, pScope){
+// scale(0.5);
+// var fish2x = animation.wave(1)*1100;
+// pScope.draw_image("fish2",fish2x,y); 
+// }
 
 
 // function fish(fishx, y, animation, pScope){
@@ -57,7 +75,7 @@ function squares(x, y, animation, pScope){
   let backgroundArcStart = 270 - angleOffset;
   let backgroundArcEnd = 270 + angleOffset;
 
-  fill("#50723C") //INNER CIRCLE BACKGRPUND)
+  fill("#b2e17a") //INNER CIRCLE BACKGRPUND)
   arc(x,y,800,800,backgroundArcStart,backgroundArcEnd); // draws "pizza slice" in the background
 
   fill("#72B01D") // INNER CIRCLE IMAGE
