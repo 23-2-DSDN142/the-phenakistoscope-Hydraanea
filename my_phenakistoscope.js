@@ -4,7 +4,7 @@ function setup_pScope(pScope){
   pScope.output_mode(ANIMATED_DISK);
   pScope.scale_for_screen(true);
   pScope.draw_layer_boundaries(true);
-  pScope.set_direction(CW);
+  pScope.set_direction(CCW);
   pScope.set_slice_count(SLICE_COUNT);
   pScope.load_image("stingray" , "png");
   pScope.load_image("fish" , "png");
@@ -18,8 +18,8 @@ function setup_layers(pScope){
   new PLayer(null, "#14b5d6");  //lets us draw the whole circle background, ignoring the boundaries
 
   var layer1 = new PLayer(stingray);
-  layer1.mode( RING );
-  layer1.set_boundary( 100, 1500 );
+  layer1.mode( SWIRL(6) );
+  layer1.set_boundary( 0, 1750 );
 
   var layer2 = new PLayer(squares);
   layer2.mode( RING );
@@ -29,16 +29,27 @@ function setup_layers(pScope){
   
 
 function stingray(x, y, animation, pScope){
-  scale(0.5);
+  // scale(0.4);
   push()
-  rotate(1*animation.frame);
 
-  //var stingray = animation.wave(3)*400;
-  pScope.draw_image_from_sequence("stingray",x,y-1000, animation.frame); 
+  scale(0.2)
+  rotate(16*animation.frame);
+  var x = animation.wave(1)*900;
+  pScope.draw_image("fish2",x+500,y+1000); 
   pop()
 
-  //var stingray = animation.wave(1)*900;
-  //pScope.draw_image_from_sequence("stingray",x,y); 
+
+  push()
+  rotate(36*animation.frame);
+  scale(1*animation.frame);
+  // translate(9*animation.frame);
+
+  var x = animation.wave(1)*1000;
+  pScope.draw_image("stingray",x,y); 
+  pop()
+
+  // var stingray = animation.wave(1)*900;
+  // pScope.draw_image("stingray",x,y); 
 
 //   scale(0.5);
 //   var fish2x = animation.wave(1)*1100;
