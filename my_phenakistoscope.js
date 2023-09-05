@@ -1,4 +1,4 @@
-const SLICE_COUNT = 10;
+const SLICE_COUNT = 13;
 
 function setup_pScope(pScope){
   pScope.output_mode(ANIMATED_DISK);
@@ -9,8 +9,10 @@ function setup_pScope(pScope){
   pScope.load_image("stingray" , "png");
   pScope.load_image("fish" , "png");
   pScope.load_image("fish2" , "png");
+  pScope.load_image("seaweed" , "png");
   pScope.load_image_sequence("stingray" , "png", 10)
-
+  pScope.load_image_sequence("seaweed" , "png", 4)
+  pScope.load_image_sequence("fish" , "png", 4)
 }
 
 function setup_layers(pScope){
@@ -18,7 +20,7 @@ function setup_layers(pScope){
   new PLayer(null, "#14b5d6");  //lets us draw the whole circle background, ignoring the boundaries
 
   var layer1 = new PLayer(stingray);
-  layer1.mode( SWIRL(6) );
+  layer1.mode( RING );
   layer1.set_boundary( 0, 1750 );
 
   var layer2 = new PLayer(squares);
@@ -30,23 +32,44 @@ function setup_layers(pScope){
 
 function stingray(x, y, animation, pScope){
   // scale(0.4);
-  push()
 
-  scale(0.2)
-  rotate(16*animation.frame);
-  var x = animation.wave(1)*900;
-  pScope.draw_image("fish2",x+500,y+1000); 
+  // push()
+  // // scale(20*animation.frame);
+  // // translate(x+100,y+100);
+  // // rotate(100, 100);
+  //   pScope.draw_image_from_sequence("stingray",x+700,y, animation.frame); 
+  // pop()
+
+  push()
+  rotate(16+animation.wave()*5);
+  scale(0.6);
+  pScope.draw_image_from_sequence("seaweed",x+1100,y+1000, animation.frame); 
   pop()
 
-
   push()
-  rotate(36*animation.frame);
-  scale(1*animation.frame);
+  rotate(16+animation.wave()*5);
+  scale(0.4);
+  pScope.draw_image_from_sequence("fish",x+500,y+1500, animation.frame); 
+  pop()
+
+  // scale(2)
+
+  // rotate(2*animation.frame);
+  // scale(11*animation.frame);
   // translate(9*animation.frame);
 
-  var x = animation.wave(1)*1000;
-  pScope.draw_image("stingray",x,y); 
-  pop()
+  // var x = animation.wave(1)*100;
+
+  // push()
+
+  // scale(0.4)
+  // rotate(16*animation.frame);
+  // //  var x = animation.wave(1)*900;
+  // pScope.draw_image("fish2",x+1000,y); 
+
+  // pop()
+
+
 
   // var stingray = animation.wave(1)*900;
   // pScope.draw_image("stingray",x,y); 
