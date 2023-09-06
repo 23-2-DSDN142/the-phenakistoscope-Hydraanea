@@ -1,9 +1,10 @@
 const SLICE_COUNT = 11;
 
 function setup_pScope(pScope){
-  pScope.output_mode(ANIMATED_DISK);
+   pScope.output_mode(ANIMATED_DISK);
+  // pScope.output_mode(OUTPUT_GIF(1000));
   pScope.scale_for_screen(true);
-  pScope.draw_layer_boundaries(true);
+  pScope.draw_layer_boundaries(false);
   pScope.set_direction(CCW);
   pScope.set_slice_count(SLICE_COUNT);
   pScope.load_image("stingray" , "png");
@@ -11,7 +12,9 @@ function setup_pScope(pScope){
   pScope.load_image("fish2" , "png");
   pScope.load_image("seaweed" , "png");
   pScope.load_image("wave" , "png");
-  pScope.load_image("shoreline3" , "png");
+  pScope.load_image("shoreline4" , "png");
+  pScope.load_image("shoreline5" , "png");
+  pScope.load_image("shoreline6" , "png");
   pScope.load_image("background" , "png");
   pScope.load_image_sequence("stingray" , "png", 10)
   pScope.load_image_sequence("seaweed" , "png", 4)
@@ -38,8 +41,8 @@ function setup_layers(pScope){
 function stingray(x, y, animation, pScope){
   // scale(0.4);
 // push()
-// scale(1)
-// scale(1*animation.frame);
+// scale(0.7)
+// translate(10*animation.frame);
 // translate(x+1000,y+10);
 // // rotate(100, 100);
 //   pScope.draw_image_from_sequence("stingray",x,y, animation.frame); 
@@ -62,8 +65,8 @@ pop()
 
   push()
   rotate(16+animation.wave()*5);
-  scale(0.6);
-  pScope.draw_image_from_sequence("seaweed",x+900,y+1500, animation.frame); 
+  scale(0.6,-0.6);
+  pScope.draw_image_from_sequence("seaweed",x-350,y+1600, animation.frame); 
   pop()
 
   push()
@@ -77,6 +80,13 @@ pop()
   scale(0.3);
   pScope.draw_image_from_sequence("bubbles",x+50,y+2700, animation.frame); 
   pop()
+
+  push()
+  rotate(16+animation.wave()*3);
+  scale(0.2,-0.2);
+  pScope.draw_image_from_sequence("bubbles",x+800,y+2700, animation.frame); 
+  pop()
+
 
 
 
@@ -137,23 +147,32 @@ pop()
 
 function wave(x, y, animation, pScope){
 
+  strokeWeight(1);
+  stroke("#31548f");
 
 
 
   // this is how you set up a background for a specific layer
-//  push()
-//   let angleOffset = (360 / SLICE_COUNT) / 2
-//   let backgroundArcStart = 270 - angleOffset;
-//   let backgroundArcEnd = 270 + angleOffset;
+ push()
 
-//   fill(290,300,130) //INNER CIRCLE BACKGRPUND)
-//   arc(x,y,700,700,backgroundArcStart,backgroundArcEnd); // draws "pizza slice" in the background
-// pop()
+  let angleOffset = (90 / SLICE_COUNT) / 1
+  let backgroundArcStart = 100 - angleOffset;
+  let backgroundArcEnd = 350 + angleOffset;
+
+  fill("#f59f58") //INNER CIRCLE BACKGRPUND)
+  arc(x,y,150,150,backgroundArcStart,backgroundArcEnd); // draws "pizza slice" in the background
+
+  pop()
+
+  push()
+  fill("#f59f58");
+  rect(-10,-150-animation.wave(600)*5,5,10) // .wave is a cosine wave btw
+pop()
 
 push()
 if(animation.frame == 0){
   scale(2)
-  pScope.draw_image("shoreline3",x,y);
+  pScope.draw_image("shoreline5",x,y);
   }
 pop()
 
