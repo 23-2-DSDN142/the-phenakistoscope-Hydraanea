@@ -69,10 +69,23 @@ pop()
   pScope.draw_image_from_sequence("seaweed",x-350,y+1600, animation.frame); 
   pop()
 
+  // push()
+  // rotate(16+animation.wave()*5);
+  // scale(0.4);
+  // pScope.draw_image_from_sequence("fish",x+500,y+1500, animation.frame); 
+  // pop()
+
   push()
   rotate(16+animation.wave()*5);
-  scale(0.4);
-  pScope.draw_image_from_sequence("fish",x+500,y+1500, animation.frame); 
+  scale(0.25);
+  pScope.draw_image_from_sequence("fish",x+1350,y+2800, animation.frame); 
+  pop()
+
+  push()
+  
+  rotate(12+animation.wave()*5);
+  scale(0.4,-0.5);
+  pScope.draw_image_from_sequence("stingray",+200,y-1200, animation.frame); 
   pop()
 
   push()
