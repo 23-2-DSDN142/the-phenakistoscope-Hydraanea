@@ -1,49 +1,139 @@
-const SLICE_COUNT = 10;
+const SLICE_COUNT = 11;
 
 function setup_pScope(pScope){
-  pScope.output_mode(ANIMATED_DISK);
+   pScope.output_mode(ANIMATED_DISK);
+  // pScope.output_mode(OUTPUT_GIF(1000));
   pScope.scale_for_screen(true);
-  pScope.draw_layer_boundaries(true);
+  pScope.draw_layer_boundaries(false);
   pScope.set_direction(CCW);
   pScope.set_slice_count(SLICE_COUNT);
+  pScope.load_image("stingray" , "png");
+  pScope.load_image("fish" , "png");
+  pScope.load_image("fish2" , "png");
+  pScope.load_image("seaweed" , "png");
+  pScope.load_image("shoreline5" , "png");
+  pScope.load_image("background" , "png");
+  pScope.load_image_sequence("stingray" , "png", 10)
+  pScope.load_image_sequence("seaweed" , "png", 4)
+  pScope.load_image_sequence("fish" , "png", 4)
+  pScope.load_image_sequence("bubbles" , "png", 4)
+
 }
 
 function setup_layers(pScope){
 
-  new PLayer(null, 220);  //lets us draw the whole circle background, ignoring the boundaries
+  new PLayer(null, "#14b5d6");  
 
-  var layer1 = new PLayer(faces);
-  layer1.mode( SWIRL(5) );
-  layer1.set_boundary( 200, 1000 );
+  var layer1 = new PLayer(stingray);
+  layer1.mode( RING );
+  layer1.set_boundary( 0, 1750 );
 
-  var layer2 = new PLayer(squares);
+  var layer2 = new PLayer(wave);
   layer2.mode( RING );
   layer2.set_boundary( 0, 400 );
+
 }
 
-function faces(x, y, animation, pScope){
+//////// INNER CIRCLE ///////////
   
-  scale(animation.frame*2);
 
-  ellipse(0,0,50,50); // draw head
-  fill(30);
-  ellipse(-10,-10,10,10); //draw eye
-  ellipse(10,-10,10,10); // draw eye
-  arc(0,10,20,10,0,180); // draw mouth
+function stingray(x, y, animation, pScope){
+
+    // SPINNING OCEAN BACKGROUND
+  push()
+     if(animation.frame == 0){
+       scale(4.5)
+       pScope.draw_image("background",x,y);
+  }
+  pop() 
+
+
+  // TALL SEAWEED
+  push()
+       scale(0.6);
+       rotate(16+animation.wave()*5);
+      pScope.draw_image_from_sequence("seaweed",x+1100,y+1000, animation.frame); 
+  pop()
+
+  // SHORT SEAWEED
+  push()
+   scale(0.6,-0.6);
+   rotate(16+animation.wave()*5);
+    pScope.draw_image_from_sequence("seaweed",x-350,y+1600, animation.frame); 
+  pop()
+
+
+  // LARGE FISH
+  // push()
+  //   scale(0.4);  
+  //   rotate(16+animation.wave()*5);
+  //   pScope.draw_image_from_sequence("fish",x+500,y+1500, animation.frame); 
+  // pop()
+
+  // SMALL FISH
+  push()
+    scale(0.25);
+    rotate(16+animation.wave()*5);
+    pScope.draw_image_from_sequence("fish",x+1350,y+2800, animation.frame); 
+  pop()
+
+  // STINGRAY
+  push()
+    scale(0.4,-0.5);
+    rotate(12+animation.wave()*5);
+    pScope.draw_image_from_sequence("stingray",+200,y-1200, animation.frame); 
+  pop()
+
+  // LOWER BUBBLES
+  push()
+    scale(0.3);
+    rotate(16+animation.wave()*5);
+    pScope.draw_image_from_sequence("bubbles",x+50,y+2700, animation.frame); 
+  pop()
+
+  // UPPER BUBBLES
+  push()
+    scale(0.2,-0.2);
+    rotate(16+animation.wave()*3);
+    pScope.draw_image_from_sequence("bubbles",x+800,y+2700, animation.frame); 
+  pop()
 
 }
 
-function squares(x, y, animation, pScope){
 
-  // this is how you set up a background for a specific layer
-  let angleOffset = (360 / SLICE_COUNT) / 2
-  let backgroundArcStart = 270 - angleOffset;
-  let backgroundArcEnd = 270 + angleOffset;
+//////////// OUTER CIRCLE //////////////
 
-  fill(66, 135, 245)
-  arc(x,y,800,800,backgroundArcStart,backgroundArcEnd); // draws "pizza slice" in the background
+function wave(x, y, animation, pScope){
 
-  fill(255)
-  rect(-10,-300-animation.wave()*50,20,20) // .wave is a cosine wave btw
+  strokeWeight(1);
+  stroke("#31548f");
+
+push()
+
+  let angleOffset = (90 / SLICE_COUNT) / 1
+  let backgroundArcStart = 100 - angleOffset;
+  let backgroundArcEnd = 350 + angleOffset;
+
+  // CENTER SUN
+  fill("#f59f58") 
+  arc(x,y,150,160,backgroundArcStart,backgroundArcEnd); // draws "pizza slice" in the background
+
+pop()
+
+// SUN RAYS
+push()
+  fill("#f59f58");
+  rect(-10,-150-animation.wave(600)*5,5,10) 
+pop()
+
+// SPINNING SHORELINE
+push()
+if(animation.frame == 0){
+  scale(2)
+  pScope.draw_image("shoreline5",x,y);
+  }
+pop()
+
+
 
 }
