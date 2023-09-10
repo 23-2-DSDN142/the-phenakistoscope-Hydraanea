@@ -11,10 +11,7 @@ function setup_pScope(pScope){
   pScope.load_image("fish" , "png");
   pScope.load_image("fish2" , "png");
   pScope.load_image("seaweed" , "png");
-  pScope.load_image("wave" , "png");
-  pScope.load_image("shoreline4" , "png");
   pScope.load_image("shoreline5" , "png");
-  pScope.load_image("shoreline6" , "png");
   pScope.load_image("background" , "png");
   pScope.load_image_sequence("stingray" , "png", 10)
   pScope.load_image_sequence("seaweed" , "png", 4)
@@ -25,7 +22,7 @@ function setup_pScope(pScope){
 
 function setup_layers(pScope){
 
-  new PLayer(null, "#14b5d6");  //lets us draw the whole circle background, ignoring the boundaries
+  new PLayer(null, "#14b5d6");  
 
   var layer1 = new PLayer(stingray);
   layer1.mode( RING );
@@ -36,152 +33,100 @@ function setup_layers(pScope){
   layer2.set_boundary( 0, 400 );
 
 }
+
+//////// INNER CIRCLE ///////////
   
 
 function stingray(x, y, animation, pScope){
-  // scale(0.4);
-// push()
-// scale(0.7)
-// translate(10*animation.frame);
-// translate(x+1000,y+10);
-// // rotate(100, 100);
-//   pScope.draw_image_from_sequence("stingray",x,y, animation.frame); 
-// pop()
-  
+
+    // SPINNING OCEAN BACKGROUND
   push()
-if(animation.frame == 0){
-  scale(4.5)
-  pScope.draw_image("background",x,y);
+     if(animation.frame == 0){
+       scale(4.5)
+       pScope.draw_image("background",x,y);
   }
-pop()
+  pop() 
 
 
-
+  // TALL SEAWEED
   push()
-  rotate(16+animation.wave()*5);
-  scale(0.6);
-  pScope.draw_image_from_sequence("seaweed",x+1100,y+1000, animation.frame); 
+       scale(0.6);
+       rotate(16+animation.wave()*5);
+      pScope.draw_image_from_sequence("seaweed",x+1100,y+1000, animation.frame); 
   pop()
 
+  // SHORT SEAWEED
   push()
-  rotate(16+animation.wave()*5);
-  scale(0.6,-0.6);
-  pScope.draw_image_from_sequence("seaweed",x-350,y+1600, animation.frame); 
+   scale(0.6,-0.6);
+   rotate(16+animation.wave()*5);
+    pScope.draw_image_from_sequence("seaweed",x-350,y+1600, animation.frame); 
   pop()
 
+
+  // LARGE FISH
   // push()
-  // rotate(16+animation.wave()*5);
-  // scale(0.4);
-  // pScope.draw_image_from_sequence("fish",x+500,y+1500, animation.frame); 
+  //   scale(0.4);  
+  //   rotate(16+animation.wave()*5);
+  //   pScope.draw_image_from_sequence("fish",x+500,y+1500, animation.frame); 
   // pop()
 
+  // SMALL FISH
   push()
-  rotate(16+animation.wave()*5);
-  scale(0.25);
-  pScope.draw_image_from_sequence("fish",x+1350,y+2800, animation.frame); 
+    scale(0.25);
+    rotate(16+animation.wave()*5);
+    pScope.draw_image_from_sequence("fish",x+1350,y+2800, animation.frame); 
   pop()
 
+  // STINGRAY
   push()
-  
-  rotate(12+animation.wave()*5);
-  scale(0.4,-0.5);
-  pScope.draw_image_from_sequence("stingray",+200,y-1200, animation.frame); 
+    scale(0.4,-0.5);
+    rotate(12+animation.wave()*5);
+    pScope.draw_image_from_sequence("stingray",+200,y-1200, animation.frame); 
   pop()
 
+  // LOWER BUBBLES
   push()
-  rotate(16+animation.wave()*5);
-  scale(0.3);
-  pScope.draw_image_from_sequence("bubbles",x+50,y+2700, animation.frame); 
+    scale(0.3);
+    rotate(16+animation.wave()*5);
+    pScope.draw_image_from_sequence("bubbles",x+50,y+2700, animation.frame); 
   pop()
 
+  // UPPER BUBBLES
   push()
-  rotate(16+animation.wave()*3);
-  scale(0.2,-0.2);
-  pScope.draw_image_from_sequence("bubbles",x+800,y+2700, animation.frame); 
+    scale(0.2,-0.2);
+    rotate(16+animation.wave()*3);
+    pScope.draw_image_from_sequence("bubbles",x+800,y+2700, animation.frame); 
   pop()
 
-
-
-
-
- 
-  // scale(2)
-
-  // rotate(2*animation.frame);
-  // scale(11*animation.frame);
-  // translate(9*animation.frame);
-
-  // var x = animation.wave(1)*100;
-
-  // push()
-
-  // scale(0.4)
-  // rotate(16*animation.frame);
-  // //  var x = animation.wave(1)*900;
-  // pScope.draw_image("fish2",x+1000,y); 
-
-  // pop()
-
-
-
-  // var stingray = animation.wave(1)*900;
-  // pScope.draw_image("stingray",x,y); 
-
-//   scale(0.5);
-//   var fish2x = animation.wave(1)*1100;
-// pScope.draw_image("fish2",fish2x,y); 
-
-// var fish2x = animation.wave(4)*100;
-// pScope.draw_image("fish2",fish2x,y); 
-
-// var fishx = animation.wave(6)*600;
-// pScope.draw_image("fish",fishx,y); 
-
-// }
 }
-// }
 
 
-// function stingray(fish2x, y, animation, pScope){
-// scale(0.5);
-// var fish2x = animation.wave(1)*1100;
-// pScope.draw_image("fish2",fish2x,y); 
-// }
-
-
-// function fish(fishx, y, animation, pScope){
-//   // scale(0);
-//   var fishx = animation.wave(2)*200;
-//   pScope.draw_image("fish",fishx,y); 
-// // pop()
-
-// }
-
+//////////// OUTER CIRCLE //////////////
 
 function wave(x, y, animation, pScope){
 
   strokeWeight(1);
   stroke("#31548f");
 
-
-
-  // this is how you set up a background for a specific layer
- push()
+push()
 
   let angleOffset = (90 / SLICE_COUNT) / 1
   let backgroundArcStart = 100 - angleOffset;
   let backgroundArcEnd = 350 + angleOffset;
 
-  fill("#f59f58") //INNER CIRCLE BACKGRPUND)
-  arc(x,y,150,150,backgroundArcStart,backgroundArcEnd); // draws "pizza slice" in the background
+  // CENTER SUN
+  fill("#f59f58") 
+  arc(x,y,150,160,backgroundArcStart,backgroundArcEnd); // draws "pizza slice" in the background
 
-  pop()
-
-  push()
-  fill("#f59f58");
-  rect(-10,-150-animation.wave(600)*5,5,10) // .wave is a cosine wave btw
 pop()
 
+// SUN RAYS
+push()
+  fill("#f59f58");
+  rect(-10,-150-animation.wave(600)*5,5,10) 
+pop()
+
+// SPINNING SHORELINE
 push()
 if(animation.frame == 0){
   scale(2)
@@ -190,37 +135,5 @@ if(animation.frame == 0){
 pop()
 
 
-// push()
-//   fill("#72B01D") // INNER CIRCLE IMAGE
-
-//   scale(0.5);
-//   translate(x+425,y+425);
-//     pScope.draw_image("wave",x,y); 
-
-//   // rect(-10,-300-animation.wave()*50,20,20) // .wave is a cosine wave btw
-// pop()
-
-
-
-
-// function Spin(x, y, animation, pScope){
-//   push()
-  
-//   if(animation.frame == 0){
-//   pScope.draw_image("spin",x,y);
-//   }
-//   pop()
-//   //translate(50 * animation.frame, 0);
-//   //scale(animation.frame*2);
-//   // fill(196, 252, 255)
-  
-  // let ballSize  = 100 + (animation.wave(1)* 20)
-  // let bouce = 50* animation.wave()
-  // ellipse(150, 850+bouce ,ballSize); 
-  
 
 }
-// function dots(x, y, animation, pScope){
-// fill(225)
-//   ellipse(0,0,10, 10)
-// }
